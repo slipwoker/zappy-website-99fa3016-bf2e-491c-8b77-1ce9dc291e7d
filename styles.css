@@ -9027,6 +9027,180 @@ body.accessibility-widget-visible ._access-menu {
   }
 }
 
+/* Added Component Styles */
+/* Video Gallery Section */
+.video-gallery-section {
+  padding: 80px 20px;
+  background: #ffffff;
+  direction: ltr;
+}
+
+.video-gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Video Grid */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  width: 100%;
+}
+
+/* Video Item */
+.video-item {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f8f9fa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.video-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(124, 58, 237, 0.15);
+}
+
+/* Video Thumbnail */
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+  background: #e9ecef;
+}
+
+.video-thumbnail img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.video-item:hover .video-thumbnail img {
+  transform: scale(1.05);
+}
+
+/* Play Button */
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 2;
+  opacity: 0.95;
+}
+
+.play-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 1;
+}
+
+.play-button:focus {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+.play-button svg {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  transition: filter 0.3s ease;
+}
+
+.video-item:hover .play-button svg {
+  filter: drop-shadow(0 6px 16px rgba(124, 58, 237, 0.3));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .video-gallery-section {
+    padding: 60px 16px;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .play-button svg {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .video-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Loading State */
+.video-thumbnail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.video-item.loading .video-thumbnail::before {
+  opacity: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .video-item,
+  .video-thumbnail img,
+  .play-button {
+    transition: none;
+  }
+
+  .video-item:hover {
+    transform: none;
+  }
+
+  .video-item:hover .video-thumbnail img {
+    transform: none;
+  }
+
+  .play-button:hover {
+    transform: translate(-50%, -50%);
+  }
+}
+
 /* ========== NAV CONTAINER MIN-HEIGHT FIX (nav-container-min-height-fix) ========== */
 /* On mobile, all nav children are position:absolute/fixed (out of flow), */
 /* so height:auto collapses to 0px. min-height ensures the navbar is visible. */
